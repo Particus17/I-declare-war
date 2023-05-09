@@ -10,33 +10,7 @@
   /******************************************
   /* LAYOUT
   /*******************************************/
-  body{
-    background: rgb(9, 76, 9);
-    color: azure;
-  }
-  img{
-    display: block;
-    margin: 0 auto;
-  }
-  button{
-    border-radius: 12%;
-    background: #ffffffe8;
-    color: rgb(21, 101, 101);
-    padding: 0 20px;
-  }
-
-  #gameboardContainer{
-  margin: 15px auto;
-  padding: 10px;
-
-  }
-  .gameboard{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 400px;
-  
-
-  }
+ 
   
   /******************************************
   /* ADDITIONAL STYLES

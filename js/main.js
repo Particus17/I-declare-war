@@ -1,92 +1,66 @@
-//your task is to figure out how to make this work so that two cards display on screen 
+//your task is to figure out how to make this work so that two cards display on screen
 // try to convert all the face cards to a numeric value
 //store a local storage of the winner
 
-let deckId = ''
+//first let's access the website
+const origin = "https://www.deckofcardsapi.com/api/deck/"; //gets a new deck
 
-document.querySelector('button').addEventListener('click', drawTwo)
+//Variables
+document.querySelector(".newGame").addEventListener("click", newGame); //what happens when we select the new game button
+//document.querySelector('.deal').addEventListener('click', deal) // what happens when we select deal button
+document.querySelector(".draw").addEventListener("click", draw); // what happens when we draw
+// document.querySelector('.war').addEventListener('click', war) // what happens when card values are the same
 
+//set up function to easily access the API throughout documnet
+const sendRequest = async (URL) => {
+  try {
+    const response = await fetch(`${origin}${URL}`); //what's happoening here? Is this the base url plus the search params? YES
+    const data = await response.json(); //parse as JSON
+    return data; //should return a javascript object
+  } catch (err) {
+    console.log(`Fetch Failure:${origin}${URL}`); //this tells us the issue is in our request: bad fetch
+  }
+};
 
-fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1') //here we are fetching a new deck from the card api website.
-    .then(res => res.json()) // parse response as JSON
-    .then(data => {
-    console.log(data)
-    deckId = data.deck_id
-    })
-    .catch(err => {
-        console.log(`error ${err}`)
+//this gets the deck if there isnt already one present and puts it into localStorage
+if (!localStorage.getItem("deckID")) {
+  sendRequest("new/shuffle/?deck_count-1") //this sends a request to our origin PLUS URL query params and API keys starting after '?'
+    .then((data) => {
+      console.log(data);
+      localStorage.setItem("deckID", data.deck_id); //this goes into our returned JSON object and grabs a property that matches that of deck_id then places it in our local storage under the variable 'deckID'
     });
-
-function drawTwo(){
-    const url = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2` //here we are creating a variable so that we can easily access
-    //the draw two api from the card deck api website.
-
-    fetch(url)
-    .then(res => res.json()) // parse response as JSON
-    .then(data => {
-  
-        console.log(data) //logging api data from the website.
-        document.querySelector('#player').src = data.cards[0].image //taking the value of card data at index 0 (so the first card pulled goes here) 
-        //and store it in the variable "#player1" from our html. Our card will now be displayed to the browser 
-
-        document.querySelector('#computer').src = data.cards[1].image //taking the value of card data at index 1 (so the second card pulled goes here) 
-        //and store it in the variable "#player1" from our html. Our card will now be displayed to the browser
-
-        let playerVal = cardValue(data.cards[0].value) // the cardValue that is being used here comes from the conversion in the cardValue function below. This is so we can register our face cards as number values
-        
-        let computerVal = cardValue(data.cards[1].value) // here we do the same thing for the second card.
-        
-        const pVal = [] //this is so we can take the cards and add them to an array to be compared to cVal
-        
-        const cVal = []  //this is so we can take the cards and add them to an array to be compared to pVal
-        
-        if(playerVal > computerVal){
-            document.querySelector('h3').innerHTML = "Player Wins"     
-            playerVal = pVal.push(playerVal) //I want to push the values into the pVal array so that I can compare the two arrays when determining who won war
-        }
-        else if(playerVal < computerVal){
-             document.querySelector('h3').innerHTML = "Computer Wins"
-             computerVal = cVal.push(computerVal) // Same idea here except with cVal
-        }  
-        else{
-            document.querySelector('h3').innerHTML = "Time for WAR!"
-             //write some code that tracks who wins the draw:
-            war() // This function was created 
-  
-        }
-    })
-    .catch(err => {
-        console.log(`error ${err}`)
-    });
-
-   function cardValue(val){
-        if(val === "ACE"){ //"ace" "king" "queen" & "jack" all come from the API card values. ***See DOM console for card values
-            return 14
-        }else if (val === "KING"){
-            return 13
-        }else if(val === "QUEEN"){
-            return 12
-        }else if(val === "JACK"){
-            return 11
-        }else{
-            return Number(val) //if card is not a face card then return the cards value and converts it from str to num
-        }
-    }
-
-    function war(pVal, cVal){
-       
-        if(pVal > cVal){
-            document.querySelector('h3').innerHTML = "Player Wins War" //if winning values in player array are greater than those in the computer array then player wins
-        }
-        else if(pVal < cVal){
-            document.querySelector('h3').innerHTML = "Computer Wins War" //if winning values in computer array are greater than those in the computer array then computer wins
-        }
-        else{
-            war() //if arrays are somehow equal then run the function again
-        }
-    }
 }
 
+//start the new game
+async function newGame() {
+  //all we want to do here is clear our local storage when we start a new game to grab a new deck
+  localStorage.clear(); //clears the values previously stored
+  location.reload(); //this reloads the current URL
+}
 
+//I want to draw all the cards from the deck
+function deal() {
+  //now we want to split the deck evenly and place the cards in each deck
+  sendRequest(`${localStorage.getItem("deckID")}/draw/?count=52`); //because we assigned our fetch to the variable 'sendRequest' we can pass our query params right into our origin URL
+  //create the piles
+  p1Arr = [];
+  p2Arr = [];
+  for (let i = 0; i < data.cards.length; i++) {
+    if (i % 2 === 0) {
+      p1Arr.push(data.cards[i]); //taking half the deck and placing it in player 1 array of cards
+    } else {
+      p2A22.push(data.cards[i]); //taking half the deck and placing it in player 2 array of cards
+    }
+  }
+  console.log(); //print data to console to see if it's working
+}
 
-
+//I want to divy the cards to each player pile
+async function draw() {
+  try {
+    //we want to pull one from the bottom of each player pile and update the remaining cards
+    // we also want to figure out a way to display the cards we pulled
+  } catch (err) {
+    console.log("404: Fetch ERR ");
+  }
+}

@@ -10,26 +10,31 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <section id="title">
-        <h1> WAR! HUA!! what is it good for?</h1>
-        <button>Deal Two</button>
-        <h3>Results</h3>
-    </section>
+    <!--We first want to set up our game enviornment-->
+    <div id="gameBoard">
+    
+        <section class="p1">
+            <h2>Player 1</h2>
+            <section class="p1Pile">
 
-    <section id="gameboardContainer">
-        <section class="gameboard">
-            <div>
-                <h2> Player 1</h2>
-                <img id="player" src="" alt="playing card">
-            </div>
+            </section>
+        </section> <!-- this is player 1 side of the table-->
 
-            <div>
-                <h2> Player 2</h2>
-                <img id="computer" src="" alt="playing card">
-            </div>
-        </section>
-    </section> 
-    <!-- <button>Declare war</button> -->
+        <img src="" alt="" class="p1Card">
+
+        <section class="p2">
+            <h2>Player 2</h2>
+            <section class="p2Pile">
+                
+            </section>
+        </section> <!-- this is player 2 side of the table-->
+        <img src="" alt="" class="p2Card">
+        <div>
+            <button class="deal">Deal</button>
+            <button class="newGame">New Game</button>
+            <button class="draw">Draw</button>
+        </div>
+    </div>
     <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
